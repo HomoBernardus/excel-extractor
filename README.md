@@ -18,10 +18,20 @@ pip3 install openpyxl xlrd
 | `分箱单.xlsx` | 分箱单模板（格式基准） |
 | `总单.xlsx` | 箱单总表（GPL sheet 为数据源） |
 | `附件备件清单.xls` | 备件明细（多 sheet，按合同号匹配） |
-| `generate_packing_list.py` | 主程序 |
+| `generate_packing_list.py` | 核心生成逻辑 |
+| `web_gui.py` | Web 图形界面 |
+| `build_windows.bat` | Windows 可执行文件构建脚本 |
 | `分箱单_生成结果.xlsx` | 输出文件 |
 
 ## 运行
+
+### Web 图形界面（推荐）
+
+```bash
+python3 web_gui.py
+```
+
+浏览器自动打开 `http://localhost:8090`。模板文件内置，总单和备件清单通过页面上传。
 
 ### 命令行
 
@@ -29,18 +39,27 @@ pip3 install openpyxl xlrd
 python3 generate_packing_list.py
 ```
 
-### 图形界面
+## 打包为可执行文件
+
+### macOS
 
 ```bash
-python3 gui.py
+pip3 install pyinstaller
+pyinstaller --onedir --name "分箱单生成工具" --add-data "分箱单.xlsx:." --hidden-import email.policy --hidden-import xlrd --hidden-import openpyxl web_gui.py
 ```
 
-支持浏览选择文件、实时进度显示、自定义输出路径。
+### Windows
+
+双击运行 `build_windows.bat`，或手动执行：
+
+```cmd
+pip install pyinstaller openpyxl xlrd
+pyinstaller --onedir --name "分箱单生成工具" --add-data "分箱单.xlsx;." --hidden-import email.policy --hidden-import xlrd --hidden-import openpyxl web_gui.py
+```
 
 ## 输出
 
-- 27 页分箱单，按 Case No. 排列在同一个 Sheet 中
-- 每页末有强制分页符
+- 按 Case No. 排列在同一个 Sheet 中，每页末有强制分页符
 - 格式与原模板一致（字体、边框、对齐、合并单元格）
 - Accessories 页自动从备件清单匹配对应 sheet 并合并同编号数据
 
