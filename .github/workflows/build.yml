@@ -33,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Windows_Program
-        path: dist/main.exe
+        path: dist/*.exe
