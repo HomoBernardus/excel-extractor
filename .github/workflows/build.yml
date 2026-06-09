@@ -26,7 +26,7 @@ jobs:
 
     - name: 开始打包
       run: |
-        pyinstaller -F -w main.py 
+        pyinstaller -F -w web_gui.py 
         # -F 打包成单文件，-w 隐藏黑色的命令行窗口
 
     - name: 上传打包好的文件
