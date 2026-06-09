@@ -1,0 +1,64 @@
+# 分箱单生成工具
+
+基于总单和附件备件清单，按分箱单模板批量生成装箱明细单。
+
+## 环境要求
+
+- Python 3.7+
+- 依赖：`openpyxl`、`xlrd`
+
+```bash
+pip3 install openpyxl xlrd
+```
+
+## 文件说明
+
+| 文件 | 用途 |
+|------|------|
+| `分箱单.xlsx` | 分箱单模板（格式基准） |
+| `总单.xlsx` | 箱单总表（GPL sheet 为数据源） |
+| `附件备件清单.xls` | 备件明细（多 sheet，按合同号匹配） |
+| `generate_packing_list.py` | 主程序 |
+| `分箱单_生成结果.xlsx` | 输出文件 |
+
+## 运行
+
+### 命令行
+
+```bash
+python3 generate_packing_list.py
+```
+
+### 图形界面
+
+```bash
+python3 gui.py
+```
+
+支持浏览选择文件、实时进度显示、自定义输出路径。
+
+## 输出
+
+- 27 页分箱单，按 Case No. 排列在同一个 Sheet 中
+- 每页末有强制分页符
+- 格式与原模板一致（字体、边框、对齐、合并单元格）
+- Accessories 页自动从备件清单匹配对应 sheet 并合并同编号数据
+
+## 数据逻辑
+
+1. 读取 `总单.xlsx` → GPL sheet，以 "MNS Low Voltage Switchgear" 行为界，下方为数据区
+2. 逐行生成一页分箱单，字段映射：
+
+| 模板位置 | 含义 | 数据来源 |
+|----------|------|----------|
+| C3 | 客户订单号 | GPL C17 |
+| F3 | 装箱编号 | GPL B 列 |
+| C4 | 尺寸 | GPL E 列 |
+| C5 | 净重 | GPL F 列 |
+| C6 | 毛重 | GPL G 列 |
+| F4 | 项目号 | GPL I 列 |
+| C10 | 品名规格 | GPL C 列 |
+| D10 | 数量 | GPL D 列 |
+| F10 | 合同号/系统号 | GPL H 列 |
+
+3. 当 C10 为 "Accessories" 时，根据 F4 项目号匹配 `附件备件清单.xls` 中的 sheet，将备件明细填入 Row 11 起

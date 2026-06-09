@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# macOS
+.DS_Store
+
+# Office temp files
+.~*
+
+# Generated output
+分箱单_生成结果.xlsx
+
+# IDE
+.vscode/
+.idea/
