@@ -2,9 +2,13 @@ name: 打包 Windows EXE
 
 on: [push] # 当你提交代码时自动触发
 
+# 💡 核心修复：强制让所有 GitHub Actions 组件在 Node.js 24 环境下运行，消除弃用报错
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   build:
-    runs-on: windows-latest # 👈 重点：这里使用的是真实的 Windows 系统
+    runs-on: windows-latest # 使用真实的 Windows 系统
     
     steps:
     - name: 复制仓库代码
@@ -18,12 +22,12 @@ jobs:
     - name: 安装依赖库
       run: |
         pip install pandas openpyxl pyinstaller
-        # 如果有其他依赖，在这里继续写
+        # 如果有其他依赖，请在这里继续添加
 
     - name: 开始打包
       run: |
         pyinstaller -F -w main.py 
-        # -F 是单文件，-w 是隐藏黑色的命令行窗口（适合GUI）
+        # -F 打包成单文件，-w 隐藏黑色的命令行窗口
 
     - name: 上传打包好的文件
       uses: actions/upload-artifact@v4
