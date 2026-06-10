@@ -15,7 +15,7 @@ pip3 install openpyxl xlrd
 
 | 文件 | 用途 |
 |------|------|
-| `分箱单.xlsx` | 分箱单模板（格式基准） |
+| `template.xlsx` | 分箱单模板（格式基准） |
 | `总单.xlsx` | 箱单总表（GPL sheet 为数据源） |
 | `附件备件清单.xls` | 备件明细（多 sheet，按合同号匹配） |
 | `generate_packing_list.py` | 核心生成逻辑 |
@@ -45,7 +45,7 @@ python3 generate_packing_list.py
 
 ```bash
 pip3 install pyinstaller
-pyinstaller --onedir --name "分箱单生成工具" --add-data "分箱单.xlsx:." --hidden-import email.policy --hidden-import xlrd --hidden-import openpyxl web_gui.py
+pyinstaller --onedir --name "分箱单生成工具" --add-data "template.xlsx:." --hidden-import email.policy --hidden-import xlrd --hidden-import openpyxl web_gui.py
 ```
 
 ### Windows
@@ -54,7 +54,7 @@ pyinstaller --onedir --name "分箱单生成工具" --add-data "分箱单.xlsx:.
 
 ```cmd
 pip install pyinstaller openpyxl xlrd
-pyinstaller --onedir --name "分箱单生成工具" --add-data "分箱单.xlsx;." --hidden-import email.policy --hidden-import xlrd --hidden-import openpyxl web_gui.py
+pyinstaller --onedir --name "分箱单生成工具" --add-data "template.xlsx;." --hidden-import email.policy --hidden-import xlrd --hidden-import openpyxl web_gui.py
 ```
 
 ## 输出

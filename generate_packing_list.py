@@ -2,7 +2,7 @@
 """
 分箱单生成程序
 数据源: 总单.xlsx (GPL sheet) + 附件备件清单.xls
-模板: 分箱单.xlsx
+模板: template.xlsx
 输出: 分箱单_生成结果.xlsx
 """
 
@@ -17,7 +17,7 @@ import os
 
 # ── Paths ──────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMPLATE_PATH = os.path.join(BASE_DIR, '分箱单.xlsx')
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'template.xlsx')
 ZONGDAN_PATH  = os.path.join(BASE_DIR, '总单.xlsx')
 SPARE_PARTS_PATH = os.path.join(BASE_DIR, '附件备件清单.xls')
 OUTPUT_PATH   = os.path.join(BASE_DIR, '分箱单_生成结果.xlsx')

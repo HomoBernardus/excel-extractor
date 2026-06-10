@@ -28,7 +28,7 @@ echo [2/3] 开始构建 (约需 3-5 分钟)...
 pyinstaller ^
   --onedir ^
   --name "分箱单生成工具" ^
-  --add-data "分箱单.xlsx;." ^
+  --add-data "template.xlsx;." ^
   --hidden-import email.policy ^
   --hidden-import xlrd ^
   --hidden-import openpyxl ^

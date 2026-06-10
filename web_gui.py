@@ -38,7 +38,7 @@ output_path = os.path.join(WORK_DIR, "分箱单_生成结果.xlsx")
 # 模板始终使用默认路径, 其他文件由用户上传
 uploaded_files = {"zd": None, "sp": None}  # key → filename on disk
 
-TPL_PATH = os.path.join(BUNDLE_DIR, "分箱单.xlsx")
+TPL_PATH = os.path.join(BUNDLE_DIR, "template.xlsx")
 TPL_EXISTS = os.path.isfile(TPL_PATH)
 
 # ── HTML page ─────────────────────────────────────────────
@@ -144,7 +144,7 @@ h1 { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 28px;
 
 <script>
 const FILE_TYPES = [
-  { key: 'tpl', label: '模板文件', defaultName: '分箱单.xlsx', accept: '.xlsx', optional: false },
+  { key: 'tpl', label: '模板文件', defaultName: 'template.xlsx', accept: '.xlsx', optional: false },
   { key: 'zd',  label: '总单文件', defaultName: '总单.xlsx',   accept: '.xlsx', optional: false },
   { key: 'sp',  label: '备件清单', defaultName: '附件备件清单.xls', accept: '.xls,.xlsx', optional: false },
 ];
@@ -348,7 +348,7 @@ class Handler(BaseHTTPRequestHandler):
 
         elif path == "/api/files":
             self._send_json({
-                "tpl": {"name": "分箱单.xlsx", "exists": TPL_EXISTS},
+                "tpl": {"name": "template.xlsx", "exists": TPL_EXISTS},
                 "zd":  {"name": uploaded_files.get("zd") or "总单.xlsx",
                         "exists": uploaded_files["zd"] is not None},
                 "sp":  {"name": uploaded_files.get("sp") or "附件备件清单.xls",
@@ -418,7 +418,7 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/api/generate":
             # Validate: template must exist, zd and sp must be uploaded
             if not TPL_EXISTS:
-                self._send_json({"ok": False, "error": "模板文件(分箱单.xlsx)不存在，请上传"}, 400)
+                self._send_json({"ok": False, "error": "模板文件(template.xlsx)不存在，请上传"}, 400)
                 return
             zd_name = uploaded_files.get("zd")
             sp_name = uploaded_files.get("sp")
