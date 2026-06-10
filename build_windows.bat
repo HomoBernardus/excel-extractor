@@ -15,9 +15,17 @@ if %errorlevel% neq 0 (
 
 :: Install dependencies
 echo [1/3] Installing dependencies...
-pip install pyinstaller openpyxl xlrd -q
+python -m pip install pyinstaller openpyxl xlrd
 if %errorlevel% neq 0 (
     echo [ERROR] Dependency install failed
+    pause
+    exit /b 1
+)
+echo.
+echo Verifying xlrd installation...
+python -c "import xlrd; print('  xlrd version:', xlrd.__version__)"
+if %errorlevel% neq 0 (
+    echo [ERROR] xlrd not installed correctly. Try: python -m pip install xlrd
     pause
     exit /b 1
 )
